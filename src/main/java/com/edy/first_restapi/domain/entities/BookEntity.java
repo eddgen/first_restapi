@@ -7,12 +7,14 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder
 @Data
 @Entity
 @Table(name = "books")
@@ -25,5 +27,7 @@ public class BookEntity {
 
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "author_id", referencedColumnName = "id")
-    private AuthorEntity author;
+    private AuthorEntity authorEntity;
+
+   
 }
