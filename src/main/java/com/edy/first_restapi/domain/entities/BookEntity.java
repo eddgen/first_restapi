@@ -27,7 +27,7 @@ public class BookEntity {
 
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "author_id", referencedColumnName = "id")
-    private AuthorEntity authorEntity;
+    private AuthorEntity author;
 
    
 }
