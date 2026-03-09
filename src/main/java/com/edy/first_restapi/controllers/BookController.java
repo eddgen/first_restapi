@@ -11,7 +11,7 @@ import com.edy.first_restapi.domain.entities.BookEntity;
 import com.edy.first_restapi.services.BookService;
 
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
 
@@ -27,7 +27,7 @@ public class BookController {
         this.bookMapper = bookMapper;
     }
     
-    @PostMapping("/books/{isbn}")
+    @PutMapping("/books/{isbn}")
     public ResponseEntity<BookDto> createBook(
         @PathVariable("isbn") String isbn,
         @RequestBody BookDto bookDto) {

@@ -8,6 +8,9 @@ import com.edy.first_restapi.domain.entities.AuthorEntity;
 import com.edy.first_restapi.services.AuthorService;
 
 import org.springframework.http.ResponseEntity;
+
+import java.util.List;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -35,9 +38,12 @@ public class AuthorController {
         return new ResponseEntity<>(authorMapper.mapto(savedAuthorEntity), HttpStatus.CREATED);
     }
     
-    @GetMapping("/author")
-    public String getAuthor(@RequestParam String param) {
-        return new String();
+    @GetMapping("/authors")
+    public List<AuthorDto> listAuthors() {
+        List<AuthorEntity> authorEntities = authorService.findAll();
+        return authorEntities.stream()
+            .map(authorEntity -> authorMapper.mapto(authorEntity))
+            .toList();
     }
     
 }
