@@ -1,6 +1,7 @@
 package com.edy.first_restapi.services.impl;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.StreamSupport;
 
 import org.springframework.stereotype.Service;
@@ -22,7 +23,7 @@ public class AuthorServiceImpl implements AuthorService {
 
 
         @Override
-        public AuthorEntity createAuthor(AuthorEntity authorEntity) {
+        public AuthorEntity save(AuthorEntity authorEntity) {
             return authorRepository.save(authorEntity);
         }
 
@@ -36,4 +37,41 @@ public class AuthorServiceImpl implements AuthorService {
                     .toList();
         }
 
+
+        @Override
+        public Optional<AuthorEntity> findById(Long id) {
+            return authorRepository.findById(id);
+        }
+
+
+        @Override
+        public boolean exists(long id) {
+            return authorRepository.existsById(id);
+        }
+
+
+        @Override
+        public AuthorEntity partialUpdate(long id, AuthorEntity authorEntity) {
+
+            Optional<AuthorEntity> existingAuthorEntity = authorRepository.findById(id);
+            return existingAuthorEntity.map(existingAuthor -> {
+                Optional.ofNullable(authorEntity.getName()).ifPresent(existingAuthor::setName);
+                Optional.ofNullable(authorEntity.getAge()).ifPresent(existingAuthor::setAge);
+                return authorRepository.save(existingAuthor);
+            }).orElseThrow(() -> new RuntimeException("Author does not exist"));
+        }
+
+
+        @Override
+        public void deleteAuthor(long id) {
+            authorRepository.deleteById(id);
+        }
+
+        
+
+
+       
+
+
+        
 }
